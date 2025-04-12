@@ -1,0 +1,48 @@
+/* Ensure full page coverage */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Prevent scrollbars */
+}
+
+body {
+    /* Dark, deep-space gradient background */
+    background: linear-gradient(135deg, #000010 0%, #050515 30%, #100518 70%, #080005 100%);
+    background-size: 400% 400%; /* Needed for animation */
+
+    /* Subtle star speck animation */
+    animation: spaceBackground 60s ease infinite;
+
+    /* Ensure canvas centering works */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Keyframes for the background gradient movement */
+@keyframes spaceBackground {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Optional: Add pseudo-element for more distinct stars if desired,
+   but keeping it simple with just the gradient for now based on requirements. */
+/*
+body::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-image: radial-gradient(white 1px, transparent 1px);
+    background-size: 50px 50px;
+    opacity: 0.1;
+    animation: stars 120s linear infinite;
+}
+
+@keyframes stars {
+    from { transform: translateY(0px); }
+    to { transform: translateY(-1000px); }
+}
+*/

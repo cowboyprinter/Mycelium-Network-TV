@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Make it responsive for mobile -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Mycelium Network TV</title>
     <link rel="stylesheet" href="style.css">
     <style>
@@ -14,14 +15,68 @@
             min-height: 100vh;
             margin: 0;
             background-color: #111; /* Fallback background */
+            position: relative; /* Needed for absolute positioning of controls */
+            overflow: hidden; /* Prevent scrollbars, especially on mobile */
         }
         canvas {
-            border: 1px solid #555; /* Optional: slight border for canvas visibility */
+            border: 1px solid #555; /* Optional */
+            max-width: 100%; /* Ensure canvas scales down */
+            max-height: 100vh;
+            display: block; /* Prevents small gap below canvas */
         }
+
+        /* Style the button container */
+        .tv-controls {
+            position: absolute; /* Position over the canvas */
+            bottom: 5%;        /* Place it near the bottom */
+            left: 50%;
+            transform: translateX(-50%); /* Center horizontally */
+            z-index: 10;       /* Ensure it's above the canvas */
+            display: flex;
+            flex-wrap: wrap; /* Allow buttons to wrap on small screens */
+            gap: 8px;         /* Spacing between buttons */
+            padding: 10px;
+            background-color: rgba(50, 50, 50, 0.6); /* Semi-transparent background */
+            border-radius: 8px;
+            max-width: 90%; /* Prevent overflow */
+            justify-content: center;
+        }
+
+        /* Style individual buttons */
+        .tv-controls button {
+            padding: 10px 15px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            background-color: #eee;
+            border: 1px solid #888;
+            border-radius: 5px;
+            min-width: 40px; /* Ensure buttons have some width */
+            text-align: center;
+        }
+        .tv-controls button:active { /* Feedback on tap */
+            background-color: #ccc;
+        }
+
     </style>
 </head>
 <body>
     <canvas id="tvCanvas" width="800" height="800"></canvas>
+
+    <!-- Add the Control Buttons -->
+    <div class="tv-controls">
+        <button data-channel="0">0</button>
+        <button data-channel="1">1</button>
+        <button data-channel="2">2</button>
+        <button data-channel="3">3</button>
+        <button data-channel="4">4</button>
+        <button data-channel="5">5</button>
+        <button data-channel="6">6</button>
+        <button data-channel="7">7</button>
+        <button data-channel="8">8</button>
+        <button data-channel="9">9</button>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>

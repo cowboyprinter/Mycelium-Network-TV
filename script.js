@@ -30,7 +30,7 @@ const frameOuterRect = {
 const channels = [
     // Channel 0: News
     {
-        name: "The Portabella Reporter",
+        name: "The Portabella Reporta",
         draw: (ctx, rect, time) => {
             ctx.fillStyle = '#c0c0c0'; // Grey background
             ctx.fillRect(rect.x, rect.y, rect.width, rect.height);
@@ -374,7 +374,7 @@ ctx.fillText(tickerText, currentX + cycleLength, tickerY);
     },
      // Channel 7: Puffballs
     {
-        name: "Puffball Panic!",
+        name: "Puffball Panic! (...wait for it...)",
         puffballs: [], // Store puffball state {x, y, size, burstTime}
         spores: [],   // Store spore state {x, y, vx, vy, life}
         init: function(rect) { // Initialize puffballs if needed
@@ -441,7 +441,7 @@ ctx.fillText(tickerText, currentX + cycleLength, tickerY);
     },
     // Channel 8: Sci-Fi/Tech
     {
-        name: "Myco-Mechanics Showcase presents: The Robo Mushroom Suit",
+        name: "AI Showcase presents: The Robo Mushroom Suit",
         draw: (ctx, rect, time) => {
             ctx.fillStyle = '#444'; // Workshop grey
             ctx.fillRect(rect.x, rect.y, rect.width, rect.height);
@@ -734,23 +734,39 @@ function animate() {
     requestAnimationFrame(animate);
 }
 
-// --- Event Listener for Channel Change ---
+// --- (Keep all your existing canvas code above) ---
+
+// --- Event Listener for Channel Change (Keyboard - Keep This!) ---
 window.addEventListener('keydown', (event) => {
     const key = event.key;
     if (key >= '0' && key <= '9') {
-        const channelNum = parseInt(key, 10);
-        if (channelNum >= 0 && channelNum < channels.length) {
-            console.log(`Changing to channel ${channelNum}`);
-            if(currentChannel !== channelNum) {
-                // Optional: Add brief static effect on change?
-                // For now, just switch directly
-                currentChannel = channelNum;
-                // Reset frame count slightly for visual jump? Optional.
-                // frameCount = 0;
-            }
-        }
+        changeChannel(parseInt(key, 10)); // Use a helper function
     }
 });
 
+// --- Add Event Listeners for Touch Buttons ---
+const channelButtons = document.querySelectorAll('.tv-controls button');
+
+channelButtons.forEach(button => {
+    button.addEventListener('click', (event) => {
+        // 'click' works for both mouse and touch taps
+        const channelNum = parseInt(event.target.dataset.channel, 10);
+        changeChannel(channelNum); // Use the same helper function
+    });
+});
+
+// --- Helper function to change channel ---
+function changeChannel(channelNum) {
+     if (channelNum >= 0 && channelNum < channels.length) {
+        console.log(`Changing to channel ${channelNum}`);
+        if(currentChannel !== channelNum) {
+            currentChannel = channelNum;
+            // Optional: Reset frameCount slightly for visual jump?
+            // frameCount = 0;
+        }
+    }
+}
+
+
 // --- Start Animation ---
-animate();
+animate(); // Make sure this is the last line to run
